@@ -23,6 +23,9 @@ Ce projet est une API RESTful conçue pour un blog ou un réseau social. Elle pe
 3. Configurez vos variables d'environnement : 
 - Créez un fichier `.env` à la racine du projet.
 - Ajoutez `MONGODB_URI=[votre_uri_mongodb]` et `JWT_SECRET=[votre_secret_jwt]`.
+or
+- `docker-compose up -d`
+- `MONGODB_URI="mongodb://root:example@localhost:27017"`
 
 4. Démarrez le serveur : `npm start` or `yarn start`
 
