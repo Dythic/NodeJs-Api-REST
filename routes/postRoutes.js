@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../utils/auth');
-const { createPost, getPost, updatePost, deletePost } = require('../api/posts');
+const createPost = require('../api/posts/createPost');
+const getPost = require('../api/posts/getPost');
+const updatePost = require('../api/posts/updatePost');
+const deletePost = require('../api/posts/deletePost');
 
 // Créer un post
 router.post('/', auth, createPost);

@@ -6,15 +6,15 @@ const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { logger } = require('./utils/logger');
-const { db } = require('./config/db');
+const db = require('./config/db');
+
+require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Connexion à MongoDB
-mongoose.connect(db.uri, db.options)
-    .then(() => console.log('Connexion réussie à MongoDB'))
-    .catch(err => console.error('Erreur de connexion à MongoDB:', err));
+db.connectDb();
 
 // Middleware
 app.use(cors());

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config()
 
-const dbUri = process.env.MONGODB_URI || 'votre_uri_mongodb_locale';
+const dbUri = process.env.MONGODB_URI;
 
 const options = {
     useNewUrlParser: true,
@@ -10,6 +11,7 @@ const options = {
 
 const connectDb = async () => {
     try {
+        console.log(dbUri)
         await mongoose.connect(dbUri, options);
         console.log('Connexion réussie à la base de données MongoDB');
     } catch (err) {

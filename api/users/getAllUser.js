@@ -1,8 +1,8 @@
-const User = require('../models/User');
+const User = require('../../models/User');
 
-const getUser = async (req, res) => {
+const getAllUser = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.find();
         if (!user) {
             return res.status(404).send('Utilisateur non trouvé');
         }
@@ -12,4 +12,4 @@ const getUser = async (req, res) => {
     }
 };
 
-module.exports = getUser;
+module.exports = getAllUser;
