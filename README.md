@@ -1,8 +1,36 @@
+# API RESTful pour Blog/Réseau Social
+
+Ce projet est une API RESTful conçue pour un blog ou un réseau social. Elle permet de gérer des utilisateurs, des posts et des commentaires, avec une authentification JWT.
+
+## Fonctionnalités
+
+- CRUD pour les utilisateurs, les posts, et les commentaires.
+- Authentification et autorisation avec JSON Web Tokens.
+- Connexion à MongoDB pour la persistance des données.
+
+## Technologies utilisées
+
+- Node.js
+- Express.js
+- MongoDB avec Mongoose
+- JSON Web Tokens pour l'authentification
+- bcryptjs pour le hachage des mots de passe
+
+## Installation
+
+1. Clonez le dépôt : `git clone git@github.com:Dythic/basicRestApi.git`
+2. Installez les dépendances : `npm install`
+3. Configurez vos variables d'environnement : 
+- Créez un fichier `.env` à la racine du projet.
+- Ajoutez `MONGODB_URI=[votre_uri_mongodb]` et `JWT_SECRET=[votre_secret_jwt]`.
+
+4. Démarrez le serveur : `npm start` or `yarn start`
+
+
 ## Utilisation
 
 - Le serveur démarrera sur `http://localhost:3000`.
 - Utilisez des outils comme Postman ou cURL pour interagir avec l'API.
-- Connecter une base de donnée Mongo
 
 ## API Endpoints
 
