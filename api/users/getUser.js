@@ -1,15 +1,15 @@
-const User = require('../../models/User');
+import User from '../../models/User.js';
 
 const getUser = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findByPk(req.params.id);
         if (!user) {
             return res.status(404).send('Utilisateur non trouvé');
         }
         res.send(user);
     } catch (err) {
-        res.status(500).send('Erreur lors de la récupération de l utilisateur');
+        res.status(500).send('Erreur lors de la récupération de l\'utilisateur');
     }
 };
 
-module.exports = getUser;
+export default getUser;

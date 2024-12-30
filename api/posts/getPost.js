@@ -1,8 +1,8 @@
-const Post = require('../../models/Post');
+import Post from '../../models/Post.js';
 
 const getPost = async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id);
+        const post = await Post.findByPk(req.params.id);
         if (!post) {
             return res.status(404).send('Post non trouvé');
         }
@@ -12,4 +12,4 @@ const getPost = async (req, res) => {
     }
 };
 
-module.exports = getPost;
+export default getPost;

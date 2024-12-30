@@ -1,13 +1,39 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/db.js';
+import User from './User.js';
+import Post from './Post.js';
 
-const commentSchema = new Schema({
-    content: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
-    createdAt: { type: Date, default: Date.now },
+const Comment = sequelize.define('Comment', {
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    authorId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: User,
+            key: 'id',
+        },
+        allowNull: false,
+    },
+    postId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Post,
+            key: 'id',
+        },
+        allowNull: false,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
+}, {
+    tableName: 'comments',
+    timestamps: false,
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
+Comment.belongsTo(User, { foreignKey: 'authorId' });
+Comment.belongsTo(Post, { foreignKey: 'postId' });
 
-module.exports = Comment;
+export default Comment;

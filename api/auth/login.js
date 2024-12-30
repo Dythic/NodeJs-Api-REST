@@ -1,11 +1,11 @@
-const User = require('../../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import User from '../../models/User.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const login = async (req, res) => {
     try {
         // Vérification de l'utilisateur
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ where: { email: req.body.email } });
         if (!user) {
             return res.status(400).send('Email ou mot de passe incorrect');
         }
@@ -17,7 +17,7 @@ const login = async (req, res) => {
         }
 
         // Génération du token JWT
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.send({ user, token });
     } catch (err) {
@@ -25,4 +25,4 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = login;
+export default login;

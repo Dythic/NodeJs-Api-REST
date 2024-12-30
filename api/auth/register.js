@@ -1,6 +1,7 @@
-const User = require('../../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import User from '../../models/User.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import logger from '../../utils/logger.js';
 
 const register = async (req, res) => {
     try {
@@ -8,22 +9,20 @@ const register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         // Création du nouvel utilisateur
-        const newUser = new User({
+        const newUser = await User.create({
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword
         });
 
-        // Enregistrement de l'utilisateur dans la base de données
-        await newUser.save();
-
         // Génération du token JWT
-        const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(201).send({ user: newUser, token });
     } catch (err) {
-        res.status(500).send('Erreur lors de l inscription');
+        logger.error('Erreur lors de l\'inscription:', err);
+        res.status(500).send('Erreur lors de l\'inscription');
     }
 };
 
-module.exports = register;
+export default register;

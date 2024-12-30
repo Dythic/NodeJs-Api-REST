@@ -1,14 +1,33 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/db.js';
+import User from './User.js';
 
-const postSchema = new Schema({
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    // Ajoutez des champs comme des dates, des commentaires, etc.
-    createdAt: { type: Date, default: Date.now },
+const Post = sequelize.define('Post', {
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    authorId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: User,
+            key: 'id',
+        },
+        allowNull: false,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
+}, {
+    tableName: 'posts',
+    timestamps: false,
 });
 
-const Post = mongoose.model('Post', postSchema);
+Post.belongsTo(User, { foreignKey: 'authorId' });
 
-module.exports = Post;
+export default Post;

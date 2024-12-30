@@ -1,8 +1,8 @@
-const Post = require('../../models/Post');
+import Post from '../../models/Post.js';
 
 const deletePost = async (req, res) => {
     try {
-        const post = await Post.findByIdAndDelete(req.params.id);
+        const post = await Post.destroy({ where: { id: req.params.id } });
         if (!post) {
             return res.status(404).send('Post non trouvé');
         }
@@ -12,4 +12,4 @@ const deletePost = async (req, res) => {
     }
 };
 
-module.exports = deletePost;
+export default deletePost;

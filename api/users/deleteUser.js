@@ -1,15 +1,15 @@
-const User = require('../../models/User');
+import User from '../../models/User.js';
 
 const deleteUser = async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
+        const user = await User.destroy({ where: { id: req.params.id } });
         if (!user) {
             return res.status(404).send('Utilisateur non trouvé');
         }
         res.send({ message: 'Utilisateur supprimé avec succès' });
     } catch (err) {
-        res.status(500).send('Erreur lors de la suppression de l utilisateur');
+        res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
     }
 };
 
-module.exports = deleteUser;
+export default deleteUser;

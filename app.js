@@ -1,20 +1,17 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
-const postRoutes = require('./routes/postRoutes');
-const userRoutes = require('./routes/userRoutes');
-const { logger } = require('./utils/logger');
-const db = require('./config/db');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import authRoutes from './routes/authRoutes.js';
+import postRoutes from './routes/postRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import logger from './utils/logger.js';
+import dotenv from 'dotenv';
+import { connectDb } from './config/db.js';
 
-require('dotenv').config()
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// Connexion à MongoDB
-db.connectDb();
 
 // Middleware
 app.use(cors());
@@ -24,6 +21,9 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
+
+// Connexion à Postgres
+connectDb();
 
 // Gestion des erreurs
 app.use((err, req, res, next) => {
@@ -36,4 +36,4 @@ app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
 });
 
-module.exports = app;
+export default app;
