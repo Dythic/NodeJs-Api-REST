@@ -56,17 +56,10 @@ Les données sont persistées dans le volume `db-data`.
 ## API Endpoints
 
 ### Authentification
-- POST `/api/auth/register` : Inscription d'un nouvel utilisateur.
-- POST `/api/auth/login` : Connexion d'un utilisateur.
+- POST `/api/users` : Inscription d'un nouvel utilisateur.
+- POST `/api/users/login` : Connexion d'un utilisateur.
 
 ### Utilisateurs
-- GET `/api/users/:id` : Récupérer les informations d'un utilisateur.
-- PUT `/api/users/:id` : Mettre à jour un utilisateur.
-- DELETE `/api/users/:id` : Supprimer un utilisateur.
-
-### Posts
-- POST `/api/posts` : Créer un nouveau post.
-- GET `/api/posts/:id` : Récupérer un post.
-- PUT `/api/posts/:id` : Mettre à jour un post.
-- DELETE `/api/posts/:id` : Supprimer un post.
-
+- GET `/api/users/me` : Récupérer les informations de l'utilisateur connecté.
+- PUT `/api/users/me` : Mettre à jour l'utilisateur connecté.
+- DELETE `/api/users/me` : Supprimer l'utilisateur connecté.
