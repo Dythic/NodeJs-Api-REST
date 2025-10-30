@@ -1,3 +1,9 @@
+node_modules/
+logs/
+*.log
+db/password.txt
+.env
+coverage/
 # Logs
 logs
 *.log

@@ -1,33 +1,51 @@
-# API RESTful pour Blog/Réseau Social
+# Démarrage local: App Node.js + DB Postgres (Docker seulement pour la DB)
 
-Ce projet est une API RESTful conçue pour un blog ou un réseau social. Elle permet de gérer des utilisateurs, des posts et des commentaires, avec une authentification JWT.
+Ce projet se lance en local avec Node.js pour l’application, et Docker Desktop/WSL uniquement pour la base PostgreSQL.
 
-## Fonctionnalités
+## 1) Lancer PostgreSQL avec Docker (Docker ne gère que la DB)
 
-- CRUD pour les utilisateurs, les posts, et les commentaires.
-- Authentification et autorisation avec JSON Web Tokens.
-- Connexion à MongoDB pour la persistance des données.
+1. Définir le mot de passe dans l'environnement (PowerShell/Bash):
+   - Bash/WSL: `export POSTGRES_PASSWORD="votre_mot_de_passe"`
+   - PowerShell: `$env:POSTGRES_PASSWORD="votre_mot_de_passe"`
 
-## Technologies utilisées
+2. Démarrer la DB:
+   - `docker compose up -d`
 
-- Node.js
-- Express.js
-- MongoDB avec Mongoose
-- JSON Web Tokens pour l'authentification
-- bcryptjs pour le hachage des mots de passe
+3. Paramètres de connexion:
+   - Host: `localhost`
+   - Port: `5432`
+   - User: `postgres`
+   - DB: `example`
+   - Password: valeur de `POSTGRES_PASSWORD`
 
-## Installation
+4. Arrêter la DB:
+   - `docker compose down`
 
-1. Clonez le dépôt : `git clone git@github.com:Dythic/basicRestApi.git`
-2. Installez les dépendances : `npm install`
-3. Configurez vos variables d'environnement : 
-- Créez un fichier `.env` à la racine du projet.
-- Ajoutez `MONGODB_URI=[votre_uri_mongodb]` et `JWT_SECRET=[votre_secret_jwt]`.
-- or
-- `docker-compose up -d`
-- `MONGODB_URI="mongodb://root:example@localhost:27017"`
+Les données sont persistées dans le volume `db-data`.
 
-4. Démarrez le serveur : `npm start` or `yarn start`
+## 2) Lancer l’application Node.js en local
+
+1. Installer les dépendances:
+   - `npm ci`
+
+2. Configurer les variables d’environnement (exemple `.env`):
+   - `JWT_SECRET="change-me"`
+   - `DB_DIALECT=postgres`
+   - `DB_HOST=localhost`
+   - `DB_PORT=5432`
+   - `DB_USER=postgres`
+   - `DB_NAME=example`
+   - `DB_PASSWORD=<le_mot_de_passe_utilisé_pour_POSTGRES_PASSWORD>`
+   - Optionnel: `CORS_ORIGINS=http://localhost:3000`
+   - Optionnel: `AUTH_USE_COOKIES=true`
+
+3. Démarrer l’app:
+   - Dev: `npm run dev`
+   - Prod local: `npm start`
+
+4. Endpoints utiles:
+   - Health: `GET /healthz`, `GET /readyz`
+   - API: `http://localhost:3000/api/...`
 
 
 ## Utilisation

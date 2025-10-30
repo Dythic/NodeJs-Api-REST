@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id     Int     @id @default(autoincrement())
+  name   String
+  email  String? @unique
+  votes  Vote[]
+}
+
+model Category {
+  id       Int            @id @default(autoincrement())
+  name     String
+  slug     String         @unique
+  games    GameCategory[]
+  votes    Vote[]
+}
+
+model Game {
+  id        Int            @id @default(autoincrement())
+  title     String
+  studio    String?
+  imageUrl  String?
+  categories GameCategory[]
+  votes     Vote[]
+}
+
+model GameCategory {
+  gameId     Int
+  categoryId Int
+  game       Game     @relation(fields: [gameId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([gameId, categoryId])
+}
+
+model Vote {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  categoryId Int
+  gameId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+  game       Game     @relation(fields: [gameId], references: [id])
+
+  @@unique([userId, categoryId])
+}
