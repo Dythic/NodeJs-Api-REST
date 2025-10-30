@@ -11,4 +11,14 @@ export async function registerAuth(app: FastifyInstance) {
       reply.code(401).send({ error: 'Non authentifié' });
     }
   });
+  app.decorate('requireAdmin', async (request: any, reply: any) => {
+    try {
+      await request.jwtVerify();
+      if (request.user?.role !== 'admin') {
+        return reply.code(403).send({ error: 'Accès refusé : rôle admin requis' });
+      }
+    } catch (err) {
+      reply.code(401).send({ error: 'Non authentifié' });
+    }
+  });
 }

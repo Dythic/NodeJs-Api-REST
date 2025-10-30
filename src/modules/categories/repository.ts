@@ -7,4 +7,7 @@ export const categoriesRepository = {
       where: { categories: { some: { categoryId } } },
       orderBy: { title: 'asc' },
     }),
+  create: (data: { name: string; slug: string }) => prisma.category.create({ data }),
+  update: (id: number, data: { name?: string; slug?: string }) => prisma.category.update({ where: { id }, data }),
+  delete: (id: number) => prisma.category.delete({ where: { id } }),
 };

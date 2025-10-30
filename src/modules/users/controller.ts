@@ -6,14 +6,14 @@ export const usersController = {
   register: async (req: FastifyRequest, rep: FastifyReply) => {
     const body = registerSchema.parse((req as any).body);
     const user = await usersService.register(body.username, body.email, body.password);
-    const token = (rep as any).jwtSign ? await (rep as any).jwtSign({ id: user.id }) : undefined;
+    const token = (rep as any).jwtSign ? await (rep as any).jwtSign({ id: user.id, role: user.role }) : undefined;
     return rep.code(201).send({ user, token });
   },
   login: async (req: FastifyRequest, rep: FastifyReply) => {
     const body = loginSchema.parse((req as any).body);
     const user = await usersService.validateCredentials(body.email, body.password);
     if (!user) return rep.code(400).send({ error: 'Email ou mot de passe incorrect' });
-    const token = (rep as any).jwtSign ? await (rep as any).jwtSign({ id: user.id }) : undefined;
+    const token = (rep as any).jwtSign ? await (rep as any).jwtSign({ id: user.id, role: user.role }) : undefined;
     return rep.send({ user, token });
   },
   me: async (req: FastifyRequest, rep: FastifyReply) => {
