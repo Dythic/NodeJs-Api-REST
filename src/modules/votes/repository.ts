@@ -1,4 +1,4 @@
-import { prisma } from '../../core/db/client';
+import { prisma } from '../../core/db/client.js';
 
 export const votesRepository = {
   create: (data: { userId: number; categoryId: number; gameId: number }) => prisma.vote.create({ data }),

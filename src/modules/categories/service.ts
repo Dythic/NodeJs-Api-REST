@@ -1,4 +1,4 @@
-import { categoriesRepository } from './repository';
+import { categoriesRepository } from './repository.js';
 
 export const categoriesService = {
   list: () => categoriesRepository.list(),

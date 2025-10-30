@@ -1,4 +1,4 @@
-import { prisma } from '../../core/db/client';
+import { prisma } from '../../core/db/client.js';
 
 export const categoriesRepository = {
   list: () => prisma.category.findMany({ orderBy: { name: 'asc' } }),

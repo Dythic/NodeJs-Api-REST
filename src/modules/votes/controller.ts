@@ -1,6 +1,6 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { votesService } from './service';
-import { createVoteSchema } from './dto';
+import { votesService } from './service.js';
+import { createVoteSchema } from './dto.js';
 
 export const votesController = {
   create: async (req: FastifyRequest, rep: FastifyReply) => {

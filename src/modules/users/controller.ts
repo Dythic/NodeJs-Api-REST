@@ -1,6 +1,6 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { usersService } from './service';
-import { loginSchema, registerSchema, updateUserSchema } from './dto';
+import { usersService } from './service.js';
+import { loginSchema, registerSchema, updateUserSchema } from './dto.js';
 
 export const usersController = {
   register: async (req: FastifyRequest, rep: FastifyReply) => {

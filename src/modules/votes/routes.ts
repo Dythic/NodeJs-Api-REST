@@ -1,5 +1,5 @@
 import type { FastifyInstance } from 'fastify';
-import { votesController } from './controller';
+import { votesController } from './controller.js';
 
 export async function votesRoutes(app: FastifyInstance) {
   app.post('/votes', votesController.create as any);

@@ -2,10 +2,10 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
-import { env } from '../core/config/env';
-import { buildLogger } from '../core/logger/logger';
-import { registerRoutes } from './routes';
-import { registerAuth } from './middlewares/auth';
+import { env } from '../core/config/env.js';
+import { buildLogger } from '../core/logger/logger.js';
+import { registerRoutes } from './routes/index.js';
+import { registerAuth } from './middlewares/auth.js';
 
 export async function createServer() {
   const app = Fastify({ logger: buildLogger() });

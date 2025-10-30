@@ -1,5 +1,5 @@
-import { createServer } from './app/server';
-import { env } from './core/config/env';
+import { createServer } from './app/server.js';
+import { env } from './core/config/env.js';
 
 async function main() {
   const app = await createServer();

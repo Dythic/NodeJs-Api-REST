@@ -1,5 +1,5 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { categoriesService } from './service';
+import { categoriesService } from './service.js';
 
 export const categoriesController = {
   list: async (_req: FastifyRequest, rep: FastifyReply) => {

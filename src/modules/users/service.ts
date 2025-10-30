@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { usersRepository } from './repository';
+import { usersRepository } from './repository.js';
 
 export const usersService = {
   async register(username: string, email: string, password: string) {
