@@ -8,7 +8,7 @@ export const votesRepository = {
       _count: { id: true },
     });
     const withNames = await Promise.all(
-      groups.map(async (g) => {
+      groups.map(async (g: { categoryId: number; gameId: number; _count: { id: number } }) => {
         const category = await prisma.category.findUnique({ where: { id: g.categoryId } });
         const game = await prisma.game.findUnique({ where: { id: g.gameId } });
         return {
